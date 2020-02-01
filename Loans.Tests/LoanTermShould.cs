@@ -12,5 +12,13 @@ namespace Loans.Tests
             var sut = new LoanTerm(1);
             Assert.That(sut.ToMonths(), Is.EqualTo(12));
         }
+
+        [Test]
+        public void StoreYears()
+        {
+            var sut = new LoanTerm(1);
+
+            Assert.That(sut.Years, Is.EqualTo(1));
+        }
     }
 }
