@@ -5,10 +5,12 @@ using System.Collections.Generic;
 
 namespace Loans.Tests
 {
-    [TestFixture]
+    //[TestFixture] // attribute not needed since NUnit 3
+    //[Ignore("Temporary disabled test class because of such and such reason.")]
     class LoanTermShould
     {
         [Test]
+        //[Ignore("Temporary disabled test because of such and such reason.")]
         public void ReturnTemInMonths()
         {
             var sut = new LoanTerm(1);
