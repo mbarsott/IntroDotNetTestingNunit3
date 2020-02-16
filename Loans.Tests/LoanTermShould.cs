@@ -1,5 +1,6 @@
 ﻿using Loans.Domain.Applications;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace Loans.Tests
@@ -65,6 +66,33 @@ namespace Loans.Tests
 
             Assert.That(a, Is.EqualTo(0.33).Within(0.004));
             Assert.That(a, Is.EqualTo(0.3333).Within(0.1).Percent);
+        }
+
+        [Test]
+        public void NotAllowZeroYears()
+        {
+            Assert.That(() => { new LoanTerm(0); }, Throws.TypeOf<ArgumentOutOfRangeException>());
+
+
+            Assert.That(() => new LoanTerm(0), Throws.TypeOf<ArgumentOutOfRangeException>()
+                .With
+                .Property("Message")
+                .EqualTo("Please specify a value greater than 0. (Parameter 'years')"));
+
+            Assert.That(() => new LoanTerm(0), Throws.TypeOf<ArgumentOutOfRangeException>()
+                .With
+                .Message
+                .EqualTo("Please specify a value greater than 0. (Parameter 'years')"));
+
+            Assert.That(() => new LoanTerm(0), Throws.TypeOf<ArgumentOutOfRangeException>()
+                .With
+                .Property("ParamName")
+                .EqualTo("years"));
+
+            Assert.That(() => new LoanTerm(0), Throws.TypeOf<ArgumentOutOfRangeException>()
+                .With
+                .Matches<ArgumentOutOfRangeException>(
+                ex => ex.ParamName == "years"));
         }
     }
 }
